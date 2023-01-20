@@ -12,7 +12,7 @@ class LogOutFloatButton extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
-              child: const Screen0(),
+              child: const Screen0Mat(),
               type: PageTransitionType.fade,
               duration: const Duration(milliseconds: 100),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/content/text_content.dart';
 import 'package:proj1/screens/screen1.dart';
+import 'package:proj1/screens/screen_login.dart';
 
 class LoginBar extends StatelessWidget {
   const LoginBar({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class LoginBar extends StatelessWidget {
         onPressed: () {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const Screen1()),
+              MaterialPageRoute(builder: (context) => const LoginPage()),
               (route) => false);
         },
         style: ElevatedButton.styleFrom(

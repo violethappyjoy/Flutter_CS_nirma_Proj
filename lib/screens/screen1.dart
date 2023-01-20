@@ -3,6 +3,19 @@ import 'package:proj1/content/list_view_content.dart';
 import 'package:proj1/content/logout_content.dart';
 import 'package:proj1/content/text_content.dart';
 
+class Screen1Mat extends StatelessWidget {
+  const Screen1Mat({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: "Home Page",
+      home: Screen1(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+
+}
+
 class Screen1 extends StatelessWidget {
   const Screen1({Key? key}) : super(key: key);
 
@@ -17,7 +30,7 @@ class Screen1 extends StatelessWidget {
       ),
       body: const HomeList(),
       floatingActionButton: const LogOutFloatButton(),
-      backgroundColor: Colors.black26,
+      backgroundColor: Colors.black,
     );
   }
 }
