@@ -1,6 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:async';
 
-class LoginPage extends StatefulWidget{
+import 'package:proj1/screens/screen1.dart';
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
@@ -8,6 +14,43 @@ class LoginPage extends StatefulWidget{
 }
 
 class _LoginState extends State<LoginPage> {
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  Future login(BuildContext cont) async {
+    if (username.text == "" || password.text == "") {
+      Fluttertoast.showToast(
+        msg: "Fields cannot be blank",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        fontSize: 16.0,
+      );
+    } else {
+      var url = "http://192.168.1.10/login.php";
+      var urlf = Uri.parse(url);
+      try {
+        var response = await http.post(urlf,
+            body: {"username": username.text, "password": password.text});
+        var data = jsonDecode(response.body);
+        if (data == "success") {
+          Navigator.pushAndRemoveUntil(
+              cont,
+              MaterialPageRoute(builder: (context) => const Screen1Mat()),
+              (route) => false);
+        } else {
+          Fluttertoast.showToast(
+            msg: "The email and password are wrong",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            fontSize: 16.0,
+          );
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +63,7 @@ class _LoginState extends State<LoginPage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children:  [
+          children: [
             // const Text(
             //   'Login',
             //   style: TextStyle(
@@ -29,69 +72,45 @@ class _LoginState extends State<LoginPage> {
             //   ),
             // ),
 
-            Form(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        filled: true,
-                        labelText: 'Email',
-                        hintText: 'Enter Email',
-                        prefixIcon: Icon(Icons.email),
-                        prefixIconColor: Colors.deepPurple,
-                        fillColor: Colors.white,
-                        hoverColor: Colors.white,
-                        focusColor: Colors.white,
-                        border: OutlineInputBorder(),
-                      ),
-                      onChanged: (String value){
-
-                      },
-                      validator: (value){
-                        return value!.isEmpty?'Please enter email': null;
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 30,),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: TextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      decoration: const InputDecoration(
-                        filled: true,
-                        labelText: 'Password',
-                        hintText: 'Enter Password',
-                        prefixIcon: Icon(Icons.password),
-                        prefixIconColor: Colors.deepPurple,
-                        fillColor: Colors.white,
-                        hoverColor: Colors.white,
-                        focusColor: Colors.white,
-                        border: OutlineInputBorder(),
-                      ),
-                      onChanged: (String value){
-
-                      },
-                      validator: (value){
-                        return value!.isEmpty?'Please enter password': null;
-                      },
-                    ),
-                  ),
-                ],
+            TextField(
+              controller: username,
+              decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                prefixIcon: const Icon(Icons.email),
+                hintText: "email",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
               ),
             ),
 
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
+
+            TextField(
+              controller: password,
+              //obscureText: true,
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  prefixIcon: const Icon(Icons.password),
+                  hintText: "password",
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
+              ),
+            ),
+
+            const SizedBox(
+              height: 30,
+            ),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: MaterialButton(
                 minWidth: double.infinity,
-                onPressed: (){
+                onPressed: () {
+                  login(context);
                   debugPrint('login pressed');
                 },
                 color: Colors.deepPurple,
@@ -107,10 +126,8 @@ class _LoginState extends State<LoginPage> {
           ],
         ),
         backgroundColor: Colors.black,
-
       ),
       debugShowCheckedModeBanner: false,
     );
   }
-
 }
