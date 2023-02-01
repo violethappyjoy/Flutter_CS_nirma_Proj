@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 
 import 'package:proj1/screens/screen1.dart';
-
+var uid;
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -16,7 +16,6 @@ class LoginPage extends StatefulWidget {
 class _LoginState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
   Future login(BuildContext cont) async {
     if (email.text == "" || password.text == "") {
       Fluttertoast.showToast(
@@ -26,18 +25,20 @@ class _LoginState extends State<LoginPage> {
         fontSize: 16.0,
       );
     } else {
-      var url = "http://192.168.155.146/login.php";
+      var url = "http://192.168.70.146/login.php";
       var urlf = Uri.parse(url);
       try {
         var response = await http.post(urlf,
             body: {"email": email.text, "password": password.text});
         var data = jsonDecode(response.body);
-        if (data == "success") {
+        if (data != "error") {
+          uid = data;
+          //print(uid);
           Navigator.pushAndRemoveUntil(
               cont,
               MaterialPageRoute(builder: (context) => const Screen1Mat()),
               (route) => false);
-        } else {
+        }else {
           Fluttertoast.showToast(
             msg: "The email and password are wrong",
             toastLength: Toast.LENGTH_SHORT,
@@ -130,4 +131,7 @@ class _LoginState extends State<LoginPage> {
       debugShowCheckedModeBanner: false,
     );
   }
+}
+getUid(){
+  return uid[0];
 }

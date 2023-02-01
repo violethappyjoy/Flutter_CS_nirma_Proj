@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:proj1/screens/screen_login.dart';
 
-class profile extends StatefulWidget{
-  const profile({super.key});
+class Profile extends StatefulWidget{
+  const Profile({super.key});
 
   @override
- _profileState createState() => _profileState();
+ _ProfileState createState() => _ProfileState();
 }
 
-class _profileState extends State<profile>{
+class _ProfileState extends State<Profile>{
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,19 +25,19 @@ class _profileState extends State<profile>{
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: double.infinity,
-              height: 200,
-              child: Container(
-                alignment: Alignment(0.0, 2.5),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-
-                  ),
-                  radius: 60.0,
-                ),
-              ),
-            ),
+            // Container(
+            //   width: double.infinity,
+            //   height: 200,
+            //   child: Container(
+            //     alignment: Alignment(0.0, 2.5),
+            //     child: CircleAvatar(
+            //       backgroundImage: NetworkImage(
+            //         imgurl,
+            //       ),
+            //       radius: 60.0,
+            //     ),
+            //   ),
+            // ),
             const SizedBox(
               height: 30,
             ),

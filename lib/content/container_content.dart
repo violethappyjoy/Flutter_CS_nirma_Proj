@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/content/login_content.dart';
 import 'package:proj1/content/text_content.dart';
+import 'package:proj1/screens/screen_login.dart';
+
 
 class NameContain extends StatelessWidget {
   const NameContain({Key? key}) : super(key: key);
@@ -24,6 +26,7 @@ class NameContain extends StatelessWidget {
         child: InkWell(
           child: const NameBar(),
           onTap: () {
+            print(getUid().runtimeType);
             debugPrint("Name clicked");
           },
         ));
