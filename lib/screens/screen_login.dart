@@ -14,11 +14,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
-  TextEditingController username = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
   Future login(BuildContext cont) async {
-    if (username.text == "" || password.text == "") {
+    if (email.text == "" || password.text == "") {
       Fluttertoast.showToast(
         msg: "Fields cannot be blank",
         toastLength: Toast.LENGTH_SHORT,
@@ -26,11 +26,11 @@ class _LoginState extends State<LoginPage> {
         fontSize: 16.0,
       );
     } else {
-      var url = "http://192.168.1.10/login.php";
+      var url = "http://192.168.155.146/login.php";
       var urlf = Uri.parse(url);
       try {
         var response = await http.post(urlf,
-            body: {"username": username.text, "password": password.text});
+            body: {"email": email.text, "password": password.text});
         var data = jsonDecode(response.body);
         if (data == "success") {
           Navigator.pushAndRemoveUntil(
@@ -73,7 +73,7 @@ class _LoginState extends State<LoginPage> {
             // ),
 
             TextField(
-              controller: username,
+              controller: email,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
