@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 
+import 'package:proj1/content/text_content.dart';
+
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
@@ -16,10 +18,11 @@ class _SignupState extends State<SignupPage>{
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Signup Page'),
+          title: const SignupTitle(),
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
         ),
+        backgroundColor: Colors.black,
       ),
       debugShowCheckedModeBanner: false,
     );

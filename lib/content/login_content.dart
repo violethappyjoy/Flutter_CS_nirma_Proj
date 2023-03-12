@@ -44,7 +44,7 @@ class LoginBar extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+                  backgroundColor: Colors.deepPurple,
                   shape: const StadiumBorder(),
                 ),
                 child: const LoginText()),
@@ -59,7 +59,7 @@ class LoginBar extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+                  backgroundColor: Colors.deepPurple,
                   shape: const StadiumBorder(),
                 ),
                 child: const SignupText()),
@@ -75,7 +75,7 @@ class LoginBar extends StatelessWidget {
                           (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+                  backgroundColor: Colors.deepPurple,
                   shape: const StadiumBorder(),
                 ),
                 child: const AdminText()),

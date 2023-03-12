@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:proj1/content/text_content.dart';
 import 'dart:async';
 
 import 'package:proj1/screens/screen1.dart';
@@ -57,7 +58,7 @@ class _LoginState extends State<LoginPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Login Page'),
+          title: const LoginTitle(),
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
         ),

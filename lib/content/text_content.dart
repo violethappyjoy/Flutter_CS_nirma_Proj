@@ -16,6 +16,38 @@ class HomeTitle extends StatelessWidget {
   }
 }
 
+class LoginTitle extends StatelessWidget {
+  const LoginTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "Login",
+      style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: 35.0,
+          fontFamily: 'SofiaSansCondensed',
+          fontWeight: FontWeight.w700),
+    );
+  }
+}
+
+class SignupTitle extends StatelessWidget {
+  const SignupTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "Sign-Up",
+      style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: 35.0,
+          fontFamily: 'SofiaSansCondensed',
+          fontWeight: FontWeight.w700),
+    );
+  }
+}
+
 class ToDo extends StatelessWidget {
   const ToDo({Key? key}) : super(key: key);
 
