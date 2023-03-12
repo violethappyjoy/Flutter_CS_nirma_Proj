@@ -158,3 +158,39 @@ class LoginText extends StatelessWidget{
   }
 
 }
+
+class SignupText extends StatelessWidget{
+  const SignupText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "Signup",
+      style: TextStyle(
+        decoration: TextDecoration.none,
+        fontSize: 35,
+        fontFamily: 'SofiaSansCondensed',
+        fontWeight: FontWeight.w700,
+      ),
+    );
+  }
+
+}
+
+class AdminText extends StatelessWidget{
+  const AdminText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "Admin",
+      style: TextStyle(
+        decoration: TextDecoration.none,
+        fontSize: 35,
+        fontFamily: 'SofiaSansCondensed',
+        fontWeight: FontWeight.w700,
+      ),
+    );
+  }
+
+}

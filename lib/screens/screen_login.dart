@@ -25,7 +25,7 @@ class _LoginState extends State<LoginPage> {
         fontSize: 16.0,
       );
     } else {
-      var url = "http://192.168.70.146/login.php";
+      var url = "http://10.2.90.86/login.php";
       var urlf = Uri.parse(url);
       try {
         var response = await http.post(urlf,

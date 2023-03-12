@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:proj1/content/login_content.dart';
 import 'package:proj1/content/text_content.dart';
+import 'package:proj1/content/sql_fetch.dart';
 import 'package:proj1/screens/screen_login.dart';
 
 
@@ -26,7 +28,9 @@ class NameContain extends StatelessWidget {
         child: InkWell(
           child: const NameBar(),
           onTap: () {
-            print(getUid().runtimeType);
+            nameS();
+            //print(nameS());
+            print(getUid());
             debugPrint("Name clicked");
           },
         ));
