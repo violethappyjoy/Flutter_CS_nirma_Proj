@@ -92,7 +92,7 @@ class _LoginState extends State<LoginPage> {
 
             TextField(
               controller: password,
-              //obscureText: true,
+              obscureText: true,
               decoration: InputDecoration(
                   fillColor: Colors.white,
                   filled: true,
