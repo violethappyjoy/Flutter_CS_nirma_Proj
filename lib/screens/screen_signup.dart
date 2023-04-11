@@ -12,12 +12,15 @@ class SignupPage extends StatefulWidget {
   @override
   _SignupState createState() => _SignupState();
 }
-class _SignupState extends State<SignupPage>{
+
+class _SignupState extends State<SignupPage> {
   var formkey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController dateCtl = TextEditingController();
   TextEditingController address = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,18 +43,16 @@ class _SignupState extends State<SignupPage>{
                   ),
                   TextFormField(
                     controller: name,
-                    validator: (val) =>
-                    val ==" "
-                    ? "Please write name"
-                    : null,
+                    validator: (val) => val == " " ? "Please write name" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.person),
                         hintText: "name",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                   ),
                   const SizedBox(
                     height: 30,
@@ -59,17 +60,16 @@ class _SignupState extends State<SignupPage>{
                   TextFormField(
                     controller: email,
                     validator: (val) =>
-                    val ==" "
-                        ? "Please write email"
-                        : null,
+                        val == " " ? "Please write email" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.email),
                         hintText: "email",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                   ),
                   const SizedBox(
                     height: 30,
@@ -78,18 +78,46 @@ class _SignupState extends State<SignupPage>{
                     controller: password,
                     obscureText: true,
                     validator: (val) =>
-                    val ==" "
-                        ? "Please write email"
-                        : null,
+                    val == " " ? "Please write password" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        contentPadding:
+                        const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.password),
                         hintText: "password",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: dateCtl,
+                    validator: (val) =>
+                        val == " " ? "Please enter Date of Birth" : null,
+                    decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        prefixIcon: const Icon(Icons.date_range),
+                        hintText: "Date of Birth",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
+                    onTap: () async{
+                      DateTime? date = DateTime(1900);
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime(1900,1),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2006));
 
+                      if(date != null) {
+                        dateCtl.text = date.toIso8601String();
+                      }
+                  },
                   ),
                   const SizedBox(
                     height: 30,
@@ -99,17 +127,16 @@ class _SignupState extends State<SignupPage>{
                     maxLines: 3,
                     controller: address,
                     validator: (val) =>
-                    val ==" "
-                        ? "Please write email"
-                        : null,
+                        val == " " ? "Please write address" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.post_add),
                         hintText: "\naddress",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                   ),
                 ],
               ),
@@ -117,9 +144,9 @@ class _SignupState extends State<SignupPage>{
           ],
         ),
         backgroundColor: Colors.black,
+        resizeToAvoidBottomInset: false,
       ),
       debugShowCheckedModeBanner: false,
     );
   }
-
 }
