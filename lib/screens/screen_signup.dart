@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'dart:async';
-
+import 'package:proj1/API_Conn/API_Conn.dart';
 import 'package:proj1/content/text_content.dart';
 
 class SignupPage extends StatefulWidget {
@@ -20,6 +19,35 @@ class _SignupState extends State<SignupPage> {
   TextEditingController password = TextEditingController();
   TextEditingController dateCtl = TextEditingController();
   TextEditingController address = TextEditingController();
+
+  validateEmail() async
+  {
+    try
+    {
+      var res = await http.post(
+        Uri.parse(API.validateEmail),
+        body: {
+          'email': email.text.trim(),
+      },
+      );
+
+      //HTTP OK 200 success code test
+      //connection with server -> success
+      if(res.statusCode == 200)
+        {
+          var resbody = jsonDecode(res.body);
+          if(resbody['exist']){
+            Fluttertoast.showToast(msg: "Email already in use");
+          }else{
+            Fluttertoast.showToast(msg: "Hello");
+          }
+        }
+    }
+    catch(e)
+    {
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +143,8 @@ class _SignupState extends State<SignupPage> {
                           lastDate: DateTime(2006));
 
                       if(date != null) {
-                        dateCtl.text = date.toIso8601String();
+                        //interpolation method to merge strings
+                        dateCtl.text = "${date.day}/${date.month}/${date.year}";
                       }
                   },
                   ),
@@ -138,6 +167,31 @@ class _SignupState extends State<SignupPage> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0))),
                   ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    child: MaterialButton(
+                      minWidth: double.infinity,
+                      onPressed:(){
+                        if(formkey.currentState!.validate())
+                        {
+                          //to check if fields are empty or not
+                          validateEmail();
+                        }
+                        debugPrint("Sign_Up Pressed");
+                      },
+                      color: Colors.deepPurple,
+                      child: const Text(
+                        'Sign-Up',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             )
