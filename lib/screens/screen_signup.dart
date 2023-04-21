@@ -36,7 +36,7 @@ class _SignupState extends State<SignupPage> {
       if(res.statusCode == 200)
         {
           var resbody = jsonDecode(res.body);
-          if(resbody['exist']){
+          if(resbody['emailFound']){
             Fluttertoast.showToast(msg: "Email already in use");
           }else{
             Fluttertoast.showToast(msg: "Hello");
