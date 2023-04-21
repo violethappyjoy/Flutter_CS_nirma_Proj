@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:proj1/API_Conn/API_Conn.dart';
 import 'package:proj1/content/text_content.dart';
+import 'package:proj1/content/user.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -22,30 +23,60 @@ class _SignupState extends State<SignupPage> {
 
   validateEmail() async
   {
-    try
-    {
+    try {
       var res = await http.post(
         Uri.parse(API.validateEmail),
         body: {
           'email': email.text.trim(),
-      },
+        },
       );
 
       //HTTP OK 200 success code test
       //connection with server -> success
-      if(res.statusCode == 200)
-        {
-          var resbody = jsonDecode(res.body);
-          if(resbody['emailFound']){
-            Fluttertoast.showToast(msg: "Email already in use");
-          }else{
-            Fluttertoast.showToast(msg: "Hello");
-          }
+      if (res.statusCode == 200) {
+        var resbody = jsonDecode(res.body);
+        if (resbody['emailFound']) {
+          Fluttertoast.showToast(msg: "Email already in use");
+        } else {
+          // Fluttertoast.showToast(msg: "Hello");
+          RegAndStore();
         }
+      }
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+
+  RegAndStore() async
+  {
+    User u = User(
+        name.text.trim(),
+        email.text.trim(),
+        password.text.trim(),
+        dateCtl.text.trim(),
+        address.text.trim()
+    );
+    try
+    {
+      var res = await http.post(
+        Uri.parse(API.signUp),
+        body: u.toJson(),
+      );
+
+      if(res.statusCode==200){
+        var resSignup=jsonDecode(res.body);
+        if(resSignup['success']==true){
+          Fluttertoast.showToast(msg: "Registered Successfully");
+        }else{
+          Fluttertoast.showToast(msg: "Error");
+        }
+
+      }
     }
     catch(e)
     {
-
+      print(e);
     }
   }
 
@@ -76,7 +107,7 @@ class _SignupState extends State<SignupPage> {
                         fillColor: Colors.white,
                         filled: true,
                         contentPadding:
-                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.person),
                         hintText: "name",
                         border: OutlineInputBorder(
@@ -88,12 +119,12 @@ class _SignupState extends State<SignupPage> {
                   TextFormField(
                     controller: email,
                     validator: (val) =>
-                        val == " " ? "Please write email" : null,
+                    val == " " ? "Please write email" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         contentPadding:
-                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.email),
                         hintText: "email",
                         border: OutlineInputBorder(
@@ -123,30 +154,30 @@ class _SignupState extends State<SignupPage> {
                   TextFormField(
                     controller: dateCtl,
                     validator: (val) =>
-                        val == " " ? "Please enter Date of Birth" : null,
+                    val == " " ? "Please enter Date of Birth" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         contentPadding:
-                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.date_range),
                         hintText: "Date of Birth",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0))),
-                    onTap: () async{
+                    onTap: () async {
                       DateTime? date = DateTime(1900);
                       FocusScope.of(context).requestFocus(FocusNode());
                       date = await showDatePicker(
                           context: context,
-                          initialDate: DateTime(1900,1),
+                          initialDate: DateTime(1900, 1),
                           firstDate: DateTime(1900),
                           lastDate: DateTime(2006));
 
-                      if(date != null) {
+                      if (date != null) {
                         //interpolation method to merge strings
                         dateCtl.text = "${date.day}/${date.month}/${date.year}";
                       }
-                  },
+                    },
                   ),
                   const SizedBox(
                     height: 30,
@@ -156,12 +187,12 @@ class _SignupState extends State<SignupPage> {
                     maxLines: 3,
                     controller: address,
                     validator: (val) =>
-                        val == " " ? "Please write address" : null,
+                    val == " " ? "Please write address" : null,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         contentPadding:
-                            const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         prefixIcon: const Icon(Icons.post_add),
                         hintText: "\naddress",
                         border: OutlineInputBorder(
@@ -174,9 +205,8 @@ class _SignupState extends State<SignupPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 35),
                     child: MaterialButton(
                       minWidth: double.infinity,
-                      onPressed:(){
-                        if(formkey.currentState!.validate())
-                        {
+                      onPressed: () {
+                        if (formkey.currentState!.validate()) {
                           //to check if fields are empty or not
                           validateEmail();
                         }
@@ -186,8 +216,8 @@ class _SignupState extends State<SignupPage> {
                       child: const Text(
                         'Sign-Up',
                         style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white
+                            fontSize: 25,
+                            color: Colors.white
                         ),
                       ),
                     ),
