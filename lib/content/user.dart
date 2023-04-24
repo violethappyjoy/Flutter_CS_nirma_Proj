@@ -1,5 +1,6 @@
 class User
 {
+  int uid;
   String name;
   String email;
   String password;
@@ -7,6 +8,7 @@ class User
   String address;
 
   User(
+      this.uid,
       this.name,
       this.email,
       this.password,
@@ -15,10 +17,12 @@ class User
       );
   Map<String, dynamic> toJson()=>
       {
-        'name':name,
-        'email':email,
-        'password':password,
-        'dob':dob,
-        'address':address,
+
+        "uid":uid.toString(),
+        "name":name,
+        "email":email,
+        "password":password,
+        "dob":dob,
+        "address":address
       };
 }

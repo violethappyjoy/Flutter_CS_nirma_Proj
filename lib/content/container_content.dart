@@ -28,9 +28,9 @@ class NameContain extends StatelessWidget {
         child: InkWell(
           child: const NameBar(),
           onTap: () {
-            nameS();
+            //nameS();
             //print(nameS());
-            print(getUid());
+            //print(getUid());
             debugPrint("Name clicked");
           },
         ));

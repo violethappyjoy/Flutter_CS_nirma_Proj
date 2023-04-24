@@ -15,6 +15,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupState extends State<SignupPage> {
   var formkey = GlobalKey<FormState>();
+  TextEditingController uid = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -24,22 +25,31 @@ class _SignupState extends State<SignupPage> {
   validateEmail() async
   {
     try {
-      var res = await http.post(
-        Uri.parse(API.validateEmail),
-        body: {
-          'email': email.text.trim(),
-        },
-      );
+      if (email.text.trim() == "" || password.text.trim() == "") {
+        Fluttertoast.showToast(
+          msg: "Fields cannot be blank",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          fontSize: 16.0,
+        );
+      }else {
+        var res = await http.post(
+          Uri.parse(API.validateEmail),
+          body: {
+            'email': email.text.trim(),
+          },
+        );
 
-      //HTTP OK 200 success code test
-      //connection with server -> success
-      if (res.statusCode == 200) {
-        var resbody = jsonDecode(res.body);
-        if (resbody['emailFound']) {
-          Fluttertoast.showToast(msg: "Email already in use");
-        } else {
-          // Fluttertoast.showToast(msg: "Hello");
-          RegAndStore();
+        //HTTP OK 200 success code test
+        //connection with server -> success
+        if (res.statusCode == 200) {
+          var resbody = jsonDecode(res.body);
+          if (resbody['emailFound']) {
+            Fluttertoast.showToast(msg: "Email already in use");
+          } else {
+            // Fluttertoast.showToast(msg: "Hello");
+            RegAndStore();
+          }
         }
       }
     }
@@ -51,22 +61,23 @@ class _SignupState extends State<SignupPage> {
   RegAndStore() async
   {
     User u = User(
+        int.parse(uid.text.trim()),
         name.text.trim(),
         email.text.trim(),
         password.text.trim(),
         dateCtl.text.trim(),
-        address.text.trim()
+        address.text.trimRight(),
     );
+
     try
     {
-      var res = await http.post(
+      var res1 = await http.post(
         Uri.parse(API.signUp),
         body: u.toJson(),
       );
-
-      if(res.statusCode==200){
-        var resSignup=jsonDecode(res.body);
-        if(resSignup['success']==true){
+      if(res1.statusCode == 200){
+        var resSignup=jsonDecode(res1.body);
+        if(resSignup['reg']){
           Fluttertoast.showToast(msg: "Registered Successfully");
         }else{
           Fluttertoast.showToast(msg: "Error");
@@ -99,6 +110,22 @@ class _SignupState extends State<SignupPage> {
                 children: [
                   const SizedBox(
                     height: 80,
+                  ),
+                  TextFormField(
+                    controller: uid,
+                    validator: (val) => val == " " ? "Please write employee ID" : null,
+                    decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        contentPadding:
+                        const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        prefixIcon: const Icon(Icons.perm_identity_sharp),
+                        hintText: "Employee ID",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
+                  ),
+                  const SizedBox(
+                    height: 30,
                   ),
                   TextFormField(
                     controller: name,
@@ -175,7 +202,7 @@ class _SignupState extends State<SignupPage> {
 
                       if (date != null) {
                         //interpolation method to merge strings
-                        dateCtl.text = "${date.day}/${date.month}/${date.year}";
+                        dateCtl.text = "${date.year}-${date.month}-${date.day}";
                       }
                     },
                   ),
