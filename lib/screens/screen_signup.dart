@@ -49,7 +49,8 @@ class _SignupState extends State<SignupPage> {
             Fluttertoast.showToast(msg: "Email already in use");
           } else {
             // Fluttertoast.showToast(msg: "Hello");
-            regAndStore(context);
+            // regAndStore(context);
+
           }
         }
       }
@@ -58,6 +59,7 @@ class _SignupState extends State<SignupPage> {
       print(e);
     }
   }
+
 
   regAndStore(BuildContext context) async
   {
@@ -119,7 +121,16 @@ class _SignupState extends State<SignupPage> {
                   ),
                   TextFormField(
                     controller: uid,
-                    validator: (val) => val == " " ? "Please write employee ID" : null,
+                    onChanged: (val){
+                      formkey.currentState?.validate();
+                    },
+                    validator: (val) {
+                      print(val);
+                      if(val!.isEmpty){
+                        return "Please Enter your Employyee_Id";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
