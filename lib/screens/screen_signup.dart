@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:proj1/API_Conn/API_Conn.dart';
 import 'package:proj1/content/text_content.dart';
 import 'package:proj1/content/user.dart';
+import 'package:proj1/screens/screen0.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -22,10 +23,10 @@ class _SignupState extends State<SignupPage> {
   TextEditingController dateCtl = TextEditingController();
   TextEditingController address = TextEditingController();
 
-  validateEmail() async
+  validateEmail(BuildContext context) async
   {
     try {
-      if (email.text.trim() == "" || password.text.trim() == "") {
+      if (uid.text.trim() == ""|| name.text.trim() == ""|| email.text.trim() == "" || dateCtl.text.trim() == ""||address.text.trim() == "") {
         Fluttertoast.showToast(
           msg: "Fields cannot be blank",
           toastLength: Toast.LENGTH_SHORT,
@@ -48,7 +49,7 @@ class _SignupState extends State<SignupPage> {
             Fluttertoast.showToast(msg: "Email already in use");
           } else {
             // Fluttertoast.showToast(msg: "Hello");
-            RegAndStore();
+            regAndStore(context);
           }
         }
       }
@@ -58,7 +59,7 @@ class _SignupState extends State<SignupPage> {
     }
   }
 
-  RegAndStore() async
+  regAndStore(BuildContext context) async
   {
     User u = User(
         int.parse(uid.text.trim()),
@@ -79,6 +80,11 @@ class _SignupState extends State<SignupPage> {
         var resSignup=jsonDecode(res1.body);
         if(resSignup['reg']){
           Fluttertoast.showToast(msg: "Registered Successfully");
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Screen0Mat()),
+                  (route) => false);
+          
         }else{
           Fluttertoast.showToast(msg: "Error");
         }
@@ -235,7 +241,7 @@ class _SignupState extends State<SignupPage> {
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
                           //to check if fields are empty or not
-                          validateEmail();
+                          validateEmail(context);
                         }
                         debugPrint("Sign_Up Pressed");
                       },
