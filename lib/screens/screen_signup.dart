@@ -121,9 +121,9 @@ class _SignupState extends State<SignupPage> {
                   ),
                   TextFormField(
                     controller: uid,
-                    onChanged: (val){
-                      formkey.currentState?.validate();
-                    },
+                    // onChanged: (val){
+                    //   formkey.currentState?.validate();
+                    // },
                     validator: (val) {
                       print(val);
                       if(val!.isEmpty){
@@ -146,14 +146,14 @@ class _SignupState extends State<SignupPage> {
                   ),
                   TextFormField(
                     controller: name,
-                    onChanged: (val){
-                      formkey.currentState?.validate();
-                    },
+                    // onChanged: (val){
+                    //   formkey.currentState?.validate();
+                    // },
                     validator: (val) {
                       print(val);
                       if(val!.isEmpty){
-                        return "Please Enter your Employyee_Id";
-                      }else if(!RegExp(r'\S').hasMatch(val)){
+                        return "Please Enter your Name";
+                      }else if(!RegExp(r'^[a-zA-z]{1,25}?\s?[a-zA-z]{1,24}$').hasMatch(val)){
                         return "Enter a valid name";
                       }
                       return null;
@@ -173,8 +173,15 @@ class _SignupState extends State<SignupPage> {
                   ),
                   TextFormField(
                     controller: email,
-                    validator: (val) =>
-                    val == " " ? "Please write email" : null,
+                    validator: (val) {
+                      print(val);
+                      if(val!.isEmpty){
+                        return "Please Enter your Email";
+                      }else if(!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(val)){
+                        return "Enter a valid Email";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -191,8 +198,15 @@ class _SignupState extends State<SignupPage> {
                   TextFormField(
                     controller: password,
                     obscureText: true,
-                    validator: (val) =>
-                    val == " " ? "Please write password" : null,
+                    validator: (val) {
+                      print(val);
+                      if(val!.isEmpty){
+                        return "Please Enter your Password";
+                      }else if(!RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,13}$a').hasMatch(val)){
+                        return "Enter a valid Password";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
