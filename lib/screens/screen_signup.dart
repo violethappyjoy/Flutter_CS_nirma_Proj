@@ -146,7 +146,18 @@ class _SignupState extends State<SignupPage> {
                   ),
                   TextFormField(
                     controller: name,
-                    validator: (val) => val == " " ? "Please write name" : null,
+                    onChanged: (val){
+                      formkey.currentState?.validate();
+                    },
+                    validator: (val) {
+                      print(val);
+                      if(val!.isEmpty){
+                        return "Please Enter your Employyee_Id";
+                      }else if(!RegExp(r'\S').hasMatch(val)){
+                        return "Enter a valid name";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
