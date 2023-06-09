@@ -3,4 +3,6 @@ class API{
   static const signUp = "$hostConnect/signup.php";
   static const validateEmail = "$hostConnect/validate_email.php";
   static const signIn = "$hostConnect/signin.php";
+  static const getUid = "$hostConnect/getuid.php";
+  static const getName = "$hostConnect/getname.php";
 }

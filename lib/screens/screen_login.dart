@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:proj1/API_Conn/API_Conn.dart';
 import 'package:proj1/content/text_content.dart';
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:proj1/screens/screen1.dart';
 
@@ -21,43 +21,6 @@ class LoginState extends State<LoginPage> {
   var formkey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
-  // login(BuildContext cont) async
-  // {
-  //   if (email.text.trim() == "" || password.text.trim() == "") {
-  //     Fluttertoast.showToast(
-  //       msg: "Fields cannot be blank",
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.BOTTOM,
-  //       fontSize: 16.0,
-  //     );
-  //   } else {
-  //     var url = "http://10.2.90.86/login.php";
-  //     var urlf = Uri.parse(url);
-  //     try {
-  //       var response = await http.post(urlf,
-  //           body: {"email": email.text, "password": password.text});
-  //       var data = jsonDecode(response.body);
-  //       if (data != "error") {
-  //         uid = data;
-  //         //print(uid);
-  //         Navigator.pushAndRemoveUntil(
-  //             cont,
-  //             MaterialPageRoute(builder: (context) => const Screen1Mat()),
-  //             (route) => false);
-  //       }else {
-  //         Fluttertoast.showToast(
-  //           msg: "The email and password are wrong",
-  //           toastLength: Toast.LENGTH_SHORT,
-  //           gravity: ToastGravity.BOTTOM,
-  //           fontSize: 16.0,
-  //         );
-  //       }
-  //     } catch (e) {
-  //       print(e);
-  //     }
-  //   }
-  // }
 
   login(BuildContext cont) async {
     try {
@@ -76,17 +39,33 @@ class LoginState extends State<LoginPage> {
         if (res.statusCode == 200) {
           var resbody = jsonDecode(res.body);
           if (resbody['loginSuccess']) {
+            var str1 = await getUid(email.text.trim());
+            Map<String, dynamic> data = str1;
+            uid = data['uid'];
             Navigator.pushAndRemoveUntil(
                 cont,
                 MaterialPageRoute(builder: (context) => const Screen1Mat()),
                 (route) => false);
-          }else{
-            Fluttertoast.showToast(msg: "Error: email not found or wrong password");
+          } else {
+            Fluttertoast.showToast(
+                msg: "Error: email not found or wrong password");
           }
         }
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<dynamic> getUid(String email) async {
+    var url = Uri.parse(API.getUid);
+    var response = await http.post(url, body: {'email': email});
+
+    if (response.statusCode == 200) {
+      var decodedResponse = jsonDecode(response.body);
+      return decodedResponse[0];
+    } else {
+      throw Exception('Failed to fetch PHP output');
     }
   }
 
@@ -174,5 +153,3 @@ class LoginState extends State<LoginPage> {
     );
   }
 }
-
-
