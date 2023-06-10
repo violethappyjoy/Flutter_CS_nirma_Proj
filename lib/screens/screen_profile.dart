@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:proj1/content/list_view_content.dart';
+import 'package:proj1/content/text_content.dart';
 import 'package:proj1/screens/screen_login.dart';
 
 class Profile extends StatefulWidget{
@@ -15,34 +17,12 @@ class _ProfileState extends State<Profile>{
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Profile Page',
-          ),
+          // centerTitle: true,
+          title: const ProfileTitle(),
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Container(
-            //   width: double.infinity,
-            //   height: 200,
-            //   child: Container(
-            //     alignment: Alignment(0.0, 2.5),
-            //     child: CircleAvatar(
-            //       backgroundImage: NetworkImage(
-            //         imgurl,
-            //       ),
-            //       radius: 60.0,
-            //     ),
-            //   ),
-            // ),
-            const SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
+        body: const ProfileList(),
         backgroundColor: Colors.black,
       ),
       debugShowCheckedModeBanner: false,

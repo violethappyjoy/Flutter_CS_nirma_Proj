@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/content/container_content.dart';
+import 'package:proj1/content/profile_content.dart';
 import 'package:proj1/content/text_content.dart';
 
 class HomeList extends StatelessWidget {
@@ -88,6 +89,171 @@ class BefLoginList extends StatelessWidget {
     var listview = ListView(
       children: const <Widget>[
         LoginContain(),
+      ],
+    );
+    return listview;
+  }
+}
+
+class ProfileList extends StatelessWidget {
+  const ProfileList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var listview = ListView(
+      children: [
+        const SizedBox(
+          height: 230,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(children: const [
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "ID:",
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontSize: 35,
+                  fontFamily: 'SofiaSansCondensed',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              ProfID(), //Future ID
+            ]),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(children: const [
+              SizedBox(
+                width: 15,
+              ),
+
+              Text(
+                "Name:",
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontSize: 35,
+                  fontFamily: 'SofiaSansCondensed',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              ProfName() //Future Name
+            ]),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(children: const [
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "Phone No.:",
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontSize: 35,
+                  fontFamily: 'SofiaSansCondensed',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              ProfPhno() //Future Phone Number
+            ]),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(children: const [
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "Email:",
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontSize: 35,
+                  fontFamily: 'SofiaSansCondensed',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              ProfEmail()
+              // Text(
+              //   "Lorem ipsum",
+              //   style: TextStyle(
+              //     color: Colors.white,
+              //     decoration: TextDecoration.none,
+              //     fontSize: 30,
+              //     fontFamily: 'SofiaSansCondensed',
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              // )
+            ]),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(children: const [
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "D.O.B.:",
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontSize: 35,
+                  fontFamily: 'SofiaSansCondensed',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              ProfDob()
+            ]),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(children: const [
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "Address:",
+                style: TextStyle(
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontSize: 35,
+                  fontFamily: 'SofiaSansCondensed',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              ),
+              ProfAddr() //Future Address
+            ]),
+            const SizedBox(
+              height: 25,
+            ),
+          ],
+        )
       ],
     );
     return listview;

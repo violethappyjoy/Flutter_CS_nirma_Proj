@@ -16,6 +16,22 @@ class HomeTitle extends StatelessWidget {
   }
 }
 
+class ProfileTitle extends StatelessWidget {
+  const ProfileTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "Profile",
+      style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: 35.0,
+          fontFamily: 'SofiaSansCondensed',
+          fontWeight: FontWeight.w700),
+    );
+  }
+}
+
 class LoginTitle extends StatelessWidget {
   const LoginTitle({Key? key}) : super(key: key);
 
