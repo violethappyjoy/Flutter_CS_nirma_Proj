@@ -83,7 +83,6 @@ class _SignupState extends State<SignupPage> {
         body: u.toJson(),
       );
       if (res1.statusCode == 200) {
-        print(u.phno);
         var resSignup = jsonDecode(res1.body);
         if (resSignup['reg']) {
           Fluttertoast.showToast(msg: "Registered Successfully");

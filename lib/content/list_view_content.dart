@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proj1/content/container_content.dart';
 import 'package:proj1/content/profile_content.dart';
 import 'package:proj1/content/text_content.dart';
+import 'package:proj1/screens/screen_todo.dart';
 
 class HomeList extends StatelessWidget {
   const HomeList({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class HomeList extends StatelessWidget {
         title: const ToDo(),
         onTap: () {
           debugPrint("ToDo clicked");
+          navigateToDo(context);
         },
       ),
       ListTile(
@@ -258,4 +260,9 @@ class ProfileList extends StatelessWidget {
     );
     return listview;
   }
+}
+void navigateToDo(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) {
+    return const ToDo1();
+  }));
 }
