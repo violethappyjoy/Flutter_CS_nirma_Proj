@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/content/list_view_content.dart';
 import 'package:proj1/content/todo_content.dart';
+import 'package:proj1/content/todo_lists.dart';
 
 class ToDo1 extends StatelessWidget{
   const ToDo1({super.key});
@@ -39,7 +40,8 @@ class Task extends StatelessWidget{
         ),
         backgroundColor: Colors.deepPurple,
       ),
-      body:
+      body:Column(
+        children:[
       Row(
         children:[
           const SizedBox(
@@ -71,13 +73,15 @@ class Task extends StatelessWidget{
           ),
         ],
       ),
+          IncTodoList()
+    ]),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple,
         child: const Icon(
             Icons.add),
         onPressed: () {
           Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ToDo_Form()),
+            MaterialPageRoute(builder: (context) => const TodoForm()),
           );
         },
 

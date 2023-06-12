@@ -7,4 +7,6 @@ class API{
   static const getName = "$hostConnect/getname.php";
   static const getProfile = "$hostConnect/profile.php";
   static const todoForm = "$hostConnect/todoform.php";
+  static const getItodo = "$hostConnect/getIlist.php";
+  static const markComp = "$hostConnect/markcomp.php";
 }

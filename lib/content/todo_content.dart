@@ -5,14 +5,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:proj1/API_Conn/API_Conn.dart';
 import 'package:proj1/screens/screen_login.dart';
 
-class ToDo_Form extends StatefulWidget {
-  const ToDo_Form({super.key});
+class TodoForm extends StatefulWidget {
+  const TodoForm({super.key});
 
   @override
-  ToDo_FormState createState() => ToDo_FormState();
+  TodoFormState createState() => TodoFormState();
 }
 
-class ToDo_FormState extends State<ToDo_Form> {
+class TodoFormState extends State<TodoForm> {
   addtask() async {
     try {
       var res = await http.post(Uri.parse(API.todoForm), body: {
@@ -47,7 +47,7 @@ class ToDo_FormState extends State<ToDo_Form> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(
                   context); // Navigate back when the arrow button is pressed
@@ -57,7 +57,8 @@ class ToDo_FormState extends State<ToDo_Form> {
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
         ),
-        body: Column(
+        body:ListView(children: [
+        Column(
           children: [
             Form(
               key: formkey1,
@@ -105,7 +106,7 @@ class ToDo_FormState extends State<ToDo_Form> {
 
                       final selectedDate = await showDatePicker(
                         context: context,
-                        initialDate: date!,
+                        initialDate: date,
                         firstDate: DateTime.now(),
                         lastDate: DateTime(2025),
                       );
@@ -113,7 +114,7 @@ class ToDo_FormState extends State<ToDo_Form> {
                       if (selectedDate != null) {
                         final selectedTime = await showTimePicker(
                           context: context,
-                          initialTime: time!,
+                          initialTime: time,
                         );
 
                         if (selectedTime != null) {
@@ -126,7 +127,7 @@ class ToDo_FormState extends State<ToDo_Form> {
                           );
 
                           dateCtl.text =
-                              "${date!.year}-${date.month}-${date.day} ${date.hour}:${date.minute}:00";
+                              "${date.year}-${date.month}-${date.day} ${date.hour}:${date.minute}:00";
                         }
                       }
                     },
@@ -151,7 +152,7 @@ class ToDo_FormState extends State<ToDo_Form> {
               ),
             ),
             const SizedBox(
-              height: 200,
+              height: 150,
             ),
             ElevatedButton(
               onPressed: () {
@@ -164,7 +165,7 @@ class ToDo_FormState extends State<ToDo_Form> {
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                 ),
-                minimumSize: MaterialStateProperty.all<Size>(Size(100, 50)),
+                minimumSize: MaterialStateProperty.all<Size>(const Size(100, 50)),
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.deepPurple),
               ),
@@ -172,6 +173,7 @@ class ToDo_FormState extends State<ToDo_Form> {
             ),
           ],
         ),
+          ]),
       ),
     );
   }
