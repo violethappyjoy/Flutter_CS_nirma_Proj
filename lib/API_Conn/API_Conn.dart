@@ -9,4 +9,6 @@ class API{
   static const todoForm = "$hostConnect/todoform.php";
   static const getItodo = "$hostConnect/getIlist.php";
   static const markComp = "$hostConnect/markcomp.php";
+  static const getCtodo = "$hostConnect/getClist.php";
+  static const getPtodo = "$hostConnect/getPlist.php";
 }

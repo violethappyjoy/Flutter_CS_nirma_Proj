@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:proj1/content/list_view_content.dart';
 import 'package:proj1/content/todo_content.dart';
 import 'package:proj1/content/todo_lists.dart';
+import 'package:proj1/screens/screen_complete.dart';
+
+import 'screen_dued.dart';
 
 class ToDo1 extends StatelessWidget{
   const ToDo1({super.key});
@@ -46,11 +49,14 @@ class Task extends StatelessWidget{
         children:[
           const SizedBox(
             height: 100,
-            width: 30,
+            width: 28,
           ),
           ElevatedButton(
             onPressed: () {
-              debugPrint("Completed");
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Completed()),
+              );
+              debugPrint("Completed clicked");
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.deepPurple,
@@ -63,7 +69,11 @@ class Task extends StatelessWidget{
           ),
           ElevatedButton(
             onPressed: () {
-              debugPrint("Urgent");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Dued()),
+              );
+              debugPrint("Past Due cliked");
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.deepPurple,
@@ -113,7 +123,7 @@ class TaskText2 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return const Text(
-      "Urgent",
+      "Past Due",
       style: TextStyle(
         decoration: TextDecoration.none,
         fontSize: 35,

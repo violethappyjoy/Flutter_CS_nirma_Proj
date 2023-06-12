@@ -13,7 +13,7 @@ class TodoForm extends StatefulWidget {
 }
 
 class TodoFormState extends State<TodoForm> {
-  addtask() async {
+  addtask(BuildContext context) async {
     try {
       var res = await http.post(Uri.parse(API.todoForm), body: {
         'uid': uid,
@@ -25,6 +25,7 @@ class TodoFormState extends State<TodoForm> {
         var resSignup = jsonDecode(res.body);
         if (resSignup['reg']) {
           Fluttertoast.showToast(msg: "Task Added");
+          Navigator.of(context).pop();
         } else {
           Fluttertoast.showToast(msg: "Error");
         }
@@ -156,7 +157,7 @@ class TodoFormState extends State<TodoForm> {
             ),
             ElevatedButton(
               onPressed: () {
-                addtask();
+                addtask(context);
                 debugPrint("Submit Clicked");
               },
               style: ButtonStyle(
