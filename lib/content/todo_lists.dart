@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:proj1/API_Conn/API_Conn.dart';
 import 'package:proj1/screens/screen_login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+//[{uid:fds,...,...},{}]
 Future<List<dynamic>> incList() async {
   final response = await http.post(Uri.parse(API.getItodo), body: {'uid': uid});
   if (response.statusCode == 200) {
@@ -70,7 +70,7 @@ class _IncTodoListState extends State<IncTodoList> {
             child: Text('Error: ${snapshot.error}'),
           );
         } else if (snapshot.hasData) {
-          List<dynamic> todos = snapshot.data!;
+          List<dynamic> todos = snapshot.data!; //null assertion operator
           return ListView.builder(
             shrinkWrap: true,
             itemCount: todos.length,
@@ -131,7 +131,7 @@ class _IncTodoListState extends State<IncTodoList> {
           );
         } else {
           return const Center(
-            child: Text('No todos found.'),
+            child: Text('Nothing todo.'),
           );
         }
       },
